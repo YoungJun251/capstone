@@ -1,19 +1,71 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.widget.EditText;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.example.myapplication.MainFrag.home_adpater;
+import com.example.myapplication.MainFrag.home_frag;
+import com.example.myapplication.MainFrag.home_model;
+import com.example.myapplication.MainFrag.notice_frag;
+import com.example.myapplication.MainFrag.user_frag;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+
+    BottomNavigationView bottomNavigationView;
+    Menu menu;
+    Bundle bundle;
+    Fragment home,user,notice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main);
 
-        EditText name = findViewById(R.id.login);
+        bottomNavigationView = findViewById(R.id.navigation2);
+        menu = getBottomNavigationView().getMenu();
+
+        //fragement 객체 생성
+        home = new home_frag();
+        user = new user_frag();
+        notice = new notice_frag();
+        bottomNavigationView.setOnNavigationItemSelectedListener(naviListener);
 
     }
 
+    private BottomNavigationView.OnNavigationItemSelectedListener naviListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.action_home:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, home).commitNow();
+                            //selectedFragment = new home_frag();
+                            break;
+
+                        case R.id.action_notice:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, notice).commit();
+                            //selectedFragment = new notice_frag();
+                            break;
+
+                        case R.id.action_user:
+                            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, user).commit();
+                            //selectedFragment = new user_frag();
+                            break;
+                    }
+                    return true;
+                }
+
+            };
+
+
+    private BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
+    }
 }
