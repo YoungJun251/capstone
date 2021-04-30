@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.MainFrag.subject.subject_frag;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -44,9 +45,8 @@ public class home_adpater extends RecyclerView.Adapter<home_holder> {
             @Override
             public void onClick(View v) {
                 AppCompatActivity activity  = (AppCompatActivity)v.getContext();
-                notice_frag frag = new notice_frag();
-                Log.e("1234", Integer.toString(position));
-                if(position == 0 ) activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,frag).addToBackStack(null).commit();
+                subject_frag sub = new subject_frag();
+                if(position == 0 ) activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,sub).addToBackStack(null).commit();
             }
             
         });

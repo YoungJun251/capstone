@@ -1,0 +1,89 @@
+package com.example.myapplication;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class RegisterActivity extends AppCompatActivity {
+
+    EditText email,name,pw;
+    Button btn_register;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userId;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.register);
+
+        name = findViewById(R.id.login_name);
+        pw = findViewById(R.id.login_pw);
+        email = findViewById(R.id.login_email);
+        btn_register = findViewById(R.id.btn_regi);
+
+        fStore = FirebaseFirestore.getInstance();
+        fAuth = FirebaseAuth.getInstance();
+        if(fAuth.getCurrentUser() != null) {
+            Toast.makeText(RegisterActivity.this,"user created",Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        //버튼 클릭시 수행행
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //입력된 현재 값들
+                String userEmail = email.getText().toString().trim();
+                String userPass = pw.getText().toString().trim();
+                String userName = name.getText().toString();
+
+                fAuth.createUserWithEmailAndPassword(userEmail,userPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this,"user created",Toast.LENGTH_SHORT).show();
+                            userId = fAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference = fStore.collection("users").document(userId);
+                            Map<String,Object> user = new HashMap<>();
+                            user.put("uName",userName);
+                            user.put("pw",userPass);
+                            user.put("email",userEmail);
+                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("TAG","user profile is created!" + userId);
+                                }
+                            });
+                            Log.e("TAG",fAuth.getCurrentUser().toString());
+                            FirebaseAuth.getInstance().signOut();
+                            onBackPressed();
+                            //startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        } else {
+                            Toast.makeText(RegisterActivity.this,"error:" + task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+}
+

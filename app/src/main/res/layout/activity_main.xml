@@ -40,7 +40,7 @@
             android:layout_height="wrap_content" />
 
         <EditText
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textColorHint="#eee"
             android:id="@+id/login"
             android:paddingStart="10dp"
@@ -52,7 +52,8 @@
             android:background="@color/white"
             android:textSize="17sp" />
         <EditText
-            android:textColor="#fff"
+            android:id="@+id/pw"
+            android:textColor="#000"
             android:textColorHint="#eee"
             android:paddingStart="10dp"
             android:paddingLeft="10dp"
@@ -74,6 +75,7 @@
             android:text = "Sign in"
             />
         <TextView
+            android:id="@+id/register"
             android:layout_marginTop="20dp"
             android:textColor="#fff"
             android:text="Forgot Password?"

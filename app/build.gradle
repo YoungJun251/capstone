@@ -28,16 +28,26 @@ android {
     }
 }
 
-dependencies {
+apply plugin: 'com.google.gms.google-services'
 
+dependencies {
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+    // To use constraintlayout in compose
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha05"
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
     implementation "androidx.viewpager2:viewpager2:1.0.0-beta04"
     implementation "com.google.android.material:material:1.0.0"
     implementation "androidx.cardview:cardview:1.0.0" // cardview 추가
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.android.support:design:30.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
+
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-database:19.5.1'
+    implementation 'com.google.firebase:firebase-firestore:22.1.2'
+    implementation 'com.google.firebase:firebase-auth:20.0.3'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

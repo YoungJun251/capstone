@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         user = new user_frag();
         notice = new notice_frag();
         bottomNavigationView.setOnNavigationItemSelectedListener(naviListener);
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, home).commitNow();
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener naviListener =

@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="5"
+            android:text=""
             android:scaleType="centerCrop"
             android:src="@drawable/ic_login" />
 
@@ -43,32 +44,35 @@
             android:orientation="horizontal">
             <TextView
                 android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:text="과목 검색"
+                android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_weight="2"></TextView>
             <EditText
+                android:id="@+id/subname"
                 android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:layout_weight="8">
             </EditText>
             <Button
+                android:id="@+id/sub_search"
                 android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:layout_weight="2"
                 android:textSize="10dp"
                 android:text="검색"
                 android:layout_gravity="center"
                 ></Button>
         </LinearLayout>
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
-        </ScrollView>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
 </RelativeLayout>
