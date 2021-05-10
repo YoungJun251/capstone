@@ -12,11 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.DAO.Commu;
 import com.example.myapplication.DAO.Subject;
 import com.example.myapplication.MainFrag.home_holder;
 import com.example.myapplication.MainFrag.home_model;
 import com.example.myapplication.R;
-import com.example.myapplication.RegisterActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,14 +29,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
-    String TAG = "subfrag_adapter";
+class sub_commu_adapter extends RecyclerView.Adapter<sub_commu_adapter.ViewHolder>{
+    String TAG = "sub_commu_adapter";
     Context c;
-    ArrayList<Subject> models;
-    int [] colors = {Color.BLUE,Color.RED,Color.GREEN,Color.GREEN,Color.DKGRAY,Color.YELLOW,Color.MAGENTA,Color.rgb(50,50,50),Color.rgb(255,94,0),Color.rgb(153,255,255),Color.rgb(255,153,0)};
+    ArrayList<Commu> models;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String send = FirebaseAuth.getInstance().getUid();
 
     public interface OnItemClickListener {
-        void onItemClick(View v, String name) ;
+        void onItemClick(View v, int position) ;
     }
 
     // 리스너 객체 참조를 저장하는 변수
@@ -47,7 +48,7 @@ class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
         this.mListener = listener ;
     }
 
-    public subfrag_adatper(Context c, ArrayList<Subject> models)
+    public sub_commu_adapter(Context c, ArrayList<Commu> models)
     {
         this.c = c;
         this.models = models;
@@ -56,7 +57,7 @@ class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.asdf,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sub_commu_layout,parent,false);
         return new ViewHolder(view);
     }
 
@@ -64,11 +65,11 @@ class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.subject.setText(models.get(position).getName());
-        holder.professor.setText(models.get(position).getProfessor());
-        holder.date.setText(models.get(position).getDate());
-        holder.bar.setBackgroundColor(colors[position]);
-        Log.d(TAG,Integer.toString(position) + " 번쨰 색");
+
+        holder.cnt.setText(models.get(position).getCnt());
+        holder.subdate.setText(models.get(position).getDate());
+        holder.chk.setText(models.get(position).getChk());
+
 
         FirebaseFirestore fStore = FirebaseFirestore.getInstance();
 
@@ -76,24 +77,7 @@ class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
             @Override
             public void onClick(View v) {
                 Log.e(TAG,"view click event !");
-                SimpleDateFormat format = new SimpleDateFormat("MM.dd");
-                Date time = new Date();
-                String date = format.format(time);
-
-                mListener.onItemClick(v,models.get(position).getName());
-
-
-                DocumentReference doRef = fStore.collection("users").document(FirebaseAuth.getInstance().getUid()).collection("database").document(models.get(position).getName()).collection("2021").document(date);
-                Map<String, Object> docData = new HashMap<>();
-                docData.put("attendance", true);
-                docData.put("time", new Timestamp(new Date()));
-                doRef.set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.e(TAG, "update succeess");
-                    }
-                });
-
+                mListener.onItemClick(v, position);
 
             }
         });
@@ -107,17 +91,15 @@ class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView subject,professor,date,bar;
-
+        TextView cnt,subdate,chk;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.subject = itemView.findViewById(R.id.id_sub);
-            this.professor = itemView.findViewById(R.id.id_professor);
-            this.date = itemView.findViewById(R.id.id_date);
-            this.bar = itemView.findViewById(R.id.id_bar);
+            this.cnt = itemView.findViewById(R.id.id_cnt);
+            this.subdate = itemView.findViewById(R.id.id_subdate);
+            this.chk = itemView.findViewById(R.id.id_chk);
 
 
         }

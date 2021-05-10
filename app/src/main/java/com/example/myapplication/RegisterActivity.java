@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -29,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
+    CheckBox prochk,stuchk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,12 @@ public class RegisterActivity extends AppCompatActivity {
         pw = findViewById(R.id.login_pw);
         email = findViewById(R.id.login_email);
         btn_register = findViewById(R.id.btn_regi);
+        prochk = findViewById(R.id.chk_pro);
+        stuchk = findViewById(R.id.chk_stu);
 
         fStore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
+
         if(fAuth.getCurrentUser() != null) {
             Toast.makeText(RegisterActivity.this,"user created",Toast.LENGTH_SHORT).show();
             finish();
@@ -55,23 +61,55 @@ public class RegisterActivity extends AppCompatActivity {
                 String userPass = pw.getText().toString().trim();
                 String userName = name.getText().toString();
 
+                if((prochk.isChecked() && stuchk.isChecked()) || (!prochk.isChecked() && !stuchk.isChecked()) )
+                {
+                    Toast.makeText(RegisterActivity.this,"한가지만 선택해주세요 ",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 fAuth.createUserWithEmailAndPassword(userEmail,userPass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()) {
                             Toast.makeText(RegisterActivity.this,"user created",Toast.LENGTH_SHORT).show();
                             userId = fAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fStore.collection("users").document(userId);
-                            Map<String,Object> user = new HashMap<>();
-                            user.put("uName",userName);
-                            user.put("pw",userPass);
-                            user.put("email",userEmail);
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Log.d("TAG","user profile is created!" + userId);
-                                }
-                            });
+
+                            DocumentReference documentReference;
+                            Map<String, Object> user = new HashMap<>();
+
+                            if(stuchk.isChecked()) {
+                                documentReference = fStore.collection("users").document(userId);
+                                user.put("uName", userName);
+                                user.put("pw", userPass);
+                                user.put("email", userEmail);
+
+
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("TAG","user profile is created!" + userId);
+                                    }
+                                });
+                            }
+                            else{
+                                documentReference = fStore.collection("professor").document(userId);
+                                user.put("uName", userName);
+                                user.put("pw", userPass);
+                                user.put("email", userEmail);
+
+
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("TAG","user profile is created!" + userId);
+                                    }
+                                });
+                            }
+
+                            Log.e("asdf",user.get("uName").toString());
+
+
+
                             Log.e("TAG",fAuth.getCurrentUser().toString());
                             FirebaseAuth.getInstance().signOut();
                             onBackPressed();
@@ -86,4 +124,3 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 }
-

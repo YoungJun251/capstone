@@ -10,6 +10,7 @@
     <color name="button">#808080</color>
     <color name="skiblue">#50bcdf</color>
     <color name="yellow">#e6b254</color>
+    <color name="gray">#d3d3d3</color>
 
 
 </resources>

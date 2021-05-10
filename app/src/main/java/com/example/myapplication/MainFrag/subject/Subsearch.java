@@ -56,7 +56,6 @@ public class Subsearch extends AppCompatActivity{
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,11 +69,11 @@ public class Subsearch extends AppCompatActivity{
 
         String subject = sub_name.getText().toString();
         btn_search.setOnClickListener(onClickListener); // click event
-
         getlist();
     }
 
     private void getlist() {
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

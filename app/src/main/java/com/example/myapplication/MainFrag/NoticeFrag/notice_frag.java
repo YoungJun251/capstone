@@ -1,0 +1,156 @@
+package com.example.myapplication.MainFrag.NoticeFrag;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.example.myapplication.DAO.Notice;
+import com.example.myapplication.MainActivity;
+import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.core.OrderBy;
+
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.Executor;
+
+public class notice_frag extends Fragment {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference CoRef = db.collection("users").document(FirebaseAuth.getInstance().getUid()).collection("Log");
+    RecyclerView recyclerView;
+    String TAG = "notice_frag", t;
+    Context context;
+    SwipeRefreshLayout swipeRefreshLayout;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    notice_adapter myadapter;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+
+        ViewGroup rootView = (ViewGroup) inflater.inflate(
+                R.layout.notice_frag, container, false);
+
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerview_notice);
+        context = container.getContext();
+        getlist();
+
+        CoRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        @Override
+        public void onEvent(@Nullable QuerySnapshot snapshots,
+                            @Nullable FirebaseFirestoreException e) {
+            if (e != null) {
+                Log.w(TAG, "listen:error", e);
+                return;
+            }
+
+            for (DocumentChange dc : snapshots.getDocumentChanges()) {
+                if (dc.getType() == DocumentChange.Type.MODIFIED) {
+                    Log.d(TAG, "database changed: " + dc.getDocument().getData());
+                }
+                if (dc.getType() == DocumentChange.Type.ADDED) {
+                    Log.d(TAG, "database changed: " + dc.getDocument().getData());
+                    getlist();
+                }
+
+            }
+
+        }
+    });
+
+        return rootView;
+
+    }
+
+    private void getlist() {
+        CoRef.orderBy("time", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    int i=0;
+                    ArrayList<Notice> arr = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Date date = document.getDate("time");
+                        t = format.format(date);
+                        arr.add(new Notice(document.get("subject").toString()+" 과목에 출석 되었습니다.",t,String.format("<%d>",i)));
+                        i++;
+                    }
+
+                    setadapter(arr);
+                }
+            }
+        });
+    }
+
+    private void setadapter(ArrayList<Notice> arr) {
+        myadapter = new notice_adapter(getContext(),arr);
+        myadapter.setOnItemClickListener(new notice_adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+
+            }
+        });
+
+        recyclerView.setAdapter(myadapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        docRef.addSnapshotListener((Executor)this, new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                if(error != null){
+//                    return;                }
+//            for(DocumentChange dc : value.getDocumentChanges())
+//            {
+//                DocumentSnapshot documentSnapshot = dc.getDocument();
+//                String id = documentSnapshot.getId();
+//                int oldIndex = dc.getOldIndex();
+//                int newIndex = dc.getNewIndex();
+//
+//                switch(dc.getType())
+//                {
+//                    case MODIFIED:
+//                        Log.e("변경","변경");
+//                        Toast.makeText(getContext(),id + " changed",Toast.LENGTH_SHORT);
+//                }
+//            }
+//            }
+//        });
+//    }
+
+
+
+}

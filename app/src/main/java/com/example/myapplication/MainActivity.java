@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -9,10 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.myapplication.MainFrag.home_adpater;
 import com.example.myapplication.MainFrag.home_frag;
-import com.example.myapplication.MainFrag.home_model;
-import com.example.myapplication.MainFrag.notice_frag;
+import com.example.myapplication.MainFrag.NoticeFrag.notice_frag;
 import com.example.myapplication.MainFrag.user_frag;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

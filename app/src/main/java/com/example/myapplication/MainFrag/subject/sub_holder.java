@@ -22,6 +22,7 @@ public class sub_holder extends RecyclerView.ViewHolder{
         this.professor = itemView.findViewById(R.id.id_professor);
         this.date = itemView.findViewById(R.id.id_date);
 
+
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,6 +30,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -42,6 +46,8 @@ public class subject_frag extends Fragment {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference doRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
     SwipeRefreshLayout swipeRefreshLayout;
+    TextView back;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -49,6 +55,7 @@ public class subject_frag extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.subject_frag, container, false);
 
+        back=(TextView) rootView.findViewById(R.id.back);
         swipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.refresh_layout);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.subject_recyclerview);
 
@@ -64,6 +71,8 @@ public class subject_frag extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+
+
         return rootView;
     }
 
@@ -79,6 +88,7 @@ public class subject_frag extends Fragment {
                         Log.d(TAG, document.getId() + " => " + document.getString("date"));
                         arr.add(new Subject(document.getId(),document.getString("date"),document.getString("professor")));
                         }
+
                     setadapter(arr);
                 }
                 }
@@ -87,6 +97,14 @@ public class subject_frag extends Fragment {
 
     private void setadapter(ArrayList<Subject> arr) {
         myadapter = new subfrag_adatper(getContext(),arr);
+        myadapter.setOnItemClickListener(new subfrag_adatper.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, String name) {
+                Intent intent = new Intent(getActivity(), sub_commu.class);
+                intent.putExtra("coRef",name);
+                startActivity(intent);
+            }
+        });
         recyclerView.setAdapter(myadapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         Log.e(TAG,Integer.toString(myadapter.getItemCount()));
