@@ -2,6 +2,8 @@ package com.example.myapplication.MainFrag.subject;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,7 +44,7 @@ import java.util.List;
 
 public class Subsearch extends AppCompatActivity{
     private static String TAG = "Subsearch";
-    Button btn_search;
+    TextView btn_search,sum_result;
     EditText sub_name;
     RecyclerView recyclerView;
     sub_adapter myadapter;
@@ -66,15 +69,32 @@ public class Subsearch extends AppCompatActivity{
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview2);
         btn_search = findViewById(R.id.sub_search);
         sub_name = findViewById(R.id.subname);
+        sum_result = findViewById(R.id.result);
 
         String subject = sub_name.getText().toString();
         btn_search.setOnClickListener(onClickListener); // click event
         getlist();
+        sub_name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                getlist();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void getlist() {
-
         docRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            int num =0;
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful())
@@ -86,18 +106,19 @@ public class Subsearch extends AppCompatActivity{
                         {
                             Log.e(TAG, String.valueOf(sub_name.getText()));
                             arr.add(new Subject(document.getId(),document.getString("date"),document.getString("professor")));
+                            num++;
                         }
 
                     }
                     Log.e(TAG,Integer.toString(arr.size()));
-                    setadapter(arr);
+                    setadapter(arr,num);
                 }
 
             }
         });
     }
 
-    private void setadapter(ArrayList<Subject> arr) {
+    private void setadapter(ArrayList<Subject> arr, int num) {
         myadapter = new sub_adapter(this,arr);
         myadapter.setOnItemClickListener(new sub_adapter.OnItemClickListener() {
             @Override
@@ -108,13 +129,13 @@ public class Subsearch extends AppCompatActivity{
         recyclerView.setAdapter(myadapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Log.e(TAG,Integer.toString(myadapter.getItemCount()));
+        sum_result.setText(num + " Results ");
     }
 
     View.OnClickListener onClickListener = v -> {
         switch(v.getId()){
             case R.id.sub_search:
-                Log.e(TAG,"click");
-                getlist();
+                sub_name.setText("");
                 break;
         }
     };

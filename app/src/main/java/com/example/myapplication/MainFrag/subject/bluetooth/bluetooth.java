@@ -4,6 +4,8 @@ package com.example.myapplication.MainFrag.subject.bluetooth;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import java.io.IOException;
@@ -27,10 +29,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
+
+import static java.lang.Thread.sleep;
 
 
 public class bluetooth extends AppCompatActivity
@@ -45,10 +51,14 @@ public class bluetooth extends AppCompatActivity
     private ArrayAdapter<String> mConversationArrayAdapter;
     static boolean isConnectionError = false;
     private static final String TAG = "BluetoothClient";
+    private ProgressDialog dialog;
     SimpleDateFormat format;
     String uid;
     String name;
     Intent intent;
+
+    public bluetooth() {
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -57,24 +67,18 @@ public class bluetooth extends AppCompatActivity
         setContentView(R.layout.bluetooth);
 
         format = new SimpleDateFormat("MM.dd");
-        Date time = new Date();
-        String date = format.format(time);
 
-        Button sendButton = (Button)findViewById(R.id.send_button);
+        //ProgressBar pgsBar = (ProgressBar)findViewById(R.id.pBar);
+
+        dialog = new ProgressDialog(this);
+        showProgressDialog();
+        //Button sendButton = (Button)findViewById(R.id.send_button);
         uid = FirebaseAuth.getInstance().getUid();
         intent = getIntent();
         name = intent.getStringExtra("name");
-        Log.e(TAG, name + " 찬휘 천재세끼야");
-        sendButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                String sendMessage = uid;
-                if ( sendMessage.length() > 0 ) {
-                    sendMessage(sendMessage);
-                }
-            }
-        });
+
         mConnectionStatus = (TextView)findViewById(R.id.connection_status_textview);
-        mInputEditText = (EditText)findViewById(R.id.input_string_edittext);
+        //mInputEditText = (EditText)findViewById(R.id.input_string_edittext);
         ListView mMessageListview = (ListView) findViewById(R.id.message_listview);
 
         mConversationArrayAdapter = new ArrayAdapter<>( this,
@@ -99,6 +103,8 @@ public class bluetooth extends AppCompatActivity
 
             showPairedDevicesListDialog();
         }
+
+
     }
 
     @Override
@@ -212,8 +218,8 @@ public class bluetooth extends AppCompatActivity
 
             byte [] readBuffer = new byte[1024];
             int readBufferPosition = 0;
-
-
+            String text = uid + "," + name;
+            write(text);
             while (true) {
 
                 if ( isCancelled() ) return false;
@@ -262,6 +268,20 @@ public class bluetooth extends AppCompatActivity
         protected void onProgressUpdate(String... recvMessage) {
 
             mConversationArrayAdapter.insert(mConnectedDeviceName + ": " + recvMessage[0], 0);
+            String quit = recvMessage[0];
+            if(quit.equals("q"))
+            {
+                Log.e(TAG,"끝");
+                dialog.cancel();
+
+                Toast.makeText(bluetooth.this,"Completed",Toast.LENGTH_SHORT).show();
+                try {
+                    sleep(1500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                onBackPressed();
+            }
         }
 
         @Override
@@ -306,14 +326,11 @@ public class bluetooth extends AppCompatActivity
             try {
                 mOutputStream.write(msg.getBytes());
                 mOutputStream.flush();
-                mOutputStream.write((","+ name).getBytes());
-                mOutputStream.flush();
 
             } catch (IOException e) {
                 Log.e(TAG, "Exception during send", e );
             }
 
-            mInputEditText.setText(" ");
         }
     }
 
@@ -411,5 +428,10 @@ public class bluetooth extends AppCompatActivity
                 showQuitDialog("You need to enable bluetooth");
             }
         }
+    }
+    private void showProgressDialog(){
+        dialog.setMessage("Loading...");
+        dialog.setCancelable(true);
+        dialog.show();
     }
 }

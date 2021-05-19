@@ -85,14 +85,14 @@ class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
 
                 DocumentReference doRef = fStore.collection("users").document(FirebaseAuth.getInstance().getUid()).collection("database").document(models.get(position).getName()).collection("2021").document(date);
                 Map<String, Object> docData = new HashMap<>();
-                docData.put("attendance", true);
-                docData.put("time", new Timestamp(new Date()));
-                doRef.set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.e(TAG, "update succeess");
-                    }
-                });
+                //docData.put("attendance", true);
+                //docData.put("time", new Timestamp(new Date()));
+//                doRef.set(docData).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Log.e(TAG, "update succeess");
+//                    }
+//                });
 
 
             }
@@ -108,8 +108,6 @@ class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView subject,professor,date,bar;
-
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

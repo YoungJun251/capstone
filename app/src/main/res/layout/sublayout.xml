@@ -1,70 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".MainActivity">
+    android:id="@+id/card_view2"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardElevation="3dp"
+    card_view:cardCornerRadius="5dp"
+    android:padding="10dp"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:background="@color/white"
+    android:padding="5dp"
+    tools:context=".MainActivity"
+    android:layout_marginTop="0dp">
 
-    <TextView
-        android:id="@+id/id_sub"
+
+    <ImageView
+        android:id="@+id/id_book"
         android:layout_width="0dp"
-        app:layout_constraintHorizontal_weight="2"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/id_professor"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:text="과목"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/id_professor"
-        android:layout_width="0dp"
-        app:layout_constraintHorizontal_weight="1"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/id_sub"
-        app:layout_constraintRight_toLeftOf="@id/id_date"
-        android:padding="5dp"
-        android:layout_margin="10dp"
-        android:textAlignment="center"
-        android:text="교수"
-        android:textStyle="bold"/>
-
-
-    <TextView
-        android:id="@+id/id_date"
-        android:layout_width="0dp"
-        app:layout_constraintHorizontal_weight="2"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/id_professor"
-        android:padding="5dp"
-        android:layout_margin="10dp"
-        android:textAlignment="center"
-        android:text="date"
-        android:textStyle="bold" />
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_book"
+        android:textStyle="bold"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent" />
 
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_gravity="center"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/id_professor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"/>
+        android:background="@color/gray"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/id_book"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/id_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold|italic"
+        android:text="--- 과목이름 ---"
+        card_view:layout_constraintBottom_toBottomOf="@+id/id_book"
+        card_view:layout_constraintStart_toEndOf="@+id/id_book"
+        card_view:layout_constraintTop_toTopOf="@+id/id_book" />
+
+    <TextView
+        android:id="@+id/id_professor0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textSize="15dp"
+        android:text="교수 : "
+        card_view:layout_constraintStart_toStartOf="@+id/id_book"
+        card_view:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/id_professor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="김찬휘"
+        android:textSize="15dp"
+        android:textColor="@color/skiblue"
+        card_view:layout_constraintStart_toEndOf="@+id/id_professor0"
+        card_view:layout_constraintTop_toTopOf="@+id/id_professor0" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+
+        android:text="날짜 : "
+        card_view:layout_constraintEnd_toStartOf="@+id/id_date"
+        card_view:layout_constraintTop_toTopOf="@+id/id_professor" />
+
+    <TextView
+        android:id="@+id/id_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="TextView"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="5dp"
+        android:textStyle="bold"
+        android:textColor="@color/yellow"
+        card_view:layout_constraintTop_toTopOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:background="@drawable/btn"
+        android:gravity="center"
+        android:text="Select"
+
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:textStyle="italic"
+        card_view:layout_constraintBottom_toBottomOf="@+id/id_sub"
+        card_view:layout_constraintEnd_toEndOf="@+id/id_date"
+        card_view:layout_constraintTop_toTopOf="@+id/id_sub" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

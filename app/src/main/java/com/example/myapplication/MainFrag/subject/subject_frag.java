@@ -72,7 +72,6 @@ public class subject_frag extends Fragment {
             }
         });
 
-
         return rootView;
     }
 
