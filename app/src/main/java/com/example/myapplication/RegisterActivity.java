@@ -24,7 +24,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterActivity extends AppCompatActivity {
+public class
+RegisterActivity extends AppCompatActivity {
 
     EditText email,name,pw;
     Button btn_register;
@@ -83,7 +84,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 user.put("pw", userPass);
                                 user.put("email", userEmail);
 
-
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -107,8 +107,6 @@ public class RegisterActivity extends AppCompatActivity {
                             }
 
                             Log.e("asdf",user.get("uName").toString());
-
-
 
                             Log.e("TAG",fAuth.getCurrentUser().toString());
                             FirebaseAuth.getInstance().signOut();

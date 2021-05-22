@@ -46,7 +46,9 @@ public class home_adpater extends RecyclerView.Adapter<home_holder> {
             public void onClick(View v) {
                 AppCompatActivity activity  = (AppCompatActivity)v.getContext();
                 subject_frag sub = new subject_frag();
+                schedule_frag schedule = new schedule_frag();
                 if(position == 0 ) activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,sub).addToBackStack(null).commit();
+                if(position == 1) activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,schedule).addToBackStack(null).commit();
             }
             
         });

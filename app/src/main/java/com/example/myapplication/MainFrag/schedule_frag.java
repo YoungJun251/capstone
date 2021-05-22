@@ -22,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class user_frag extends Fragment {
+public class schedule_frag extends Fragment {
     private TextView monday[] = new TextView[14];
     private TextView tuesday[] = new TextView[14];
     private TextView wednesday[] = new TextView[14];

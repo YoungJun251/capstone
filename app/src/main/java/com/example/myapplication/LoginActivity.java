@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "logged in", Toast.LENGTH_SHORT).show();
                             Log.e(TAG,fAuth.getUid());
+
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else { //비밀번호가 틀리거나 잘못입력
                             Toast.makeText(LoginActivity.this, "error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
