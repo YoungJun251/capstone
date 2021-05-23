@@ -34,10 +34,8 @@ public class LoginActivity extends AppCompatActivity {
         Button btn_login = findViewById(R.id.access);
         TextView textView = findViewById(R.id.register);
 
-
         textView.setOnClickListener(onClickListener);
         btn_login.setOnClickListener(onClickListener);
-
     }
 
     View.OnClickListener onClickListener = v ->

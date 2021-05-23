@@ -27,6 +27,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -129,7 +130,7 @@ public class sub_adapter extends RecyclerView.Adapter<sub_holder>{
                                 Log.e("TAG","교수용 출석 확인 디비 갱신 완료");
                                 if(task.isSuccessful()) {
                                     for(QueryDocumentSnapshot document : task.getResult()) {
-                                        coref2.document(document.getId()).set(student_uid);
+                                        coref2.document(document.getId()).set(student_uid, SetOptions.merge());
                                         Log.e(TAG,document.getId() + "에 uid 입력됨");
                                     }
                                 }

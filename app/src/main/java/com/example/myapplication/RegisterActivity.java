@@ -83,7 +83,7 @@ RegisterActivity extends AppCompatActivity {
                                 user.put("uName", userName);
                                 user.put("pw", userPass);
                                 user.put("email", userEmail);
-
+                                user.put("isProfessor",Boolean.valueOf("false"));
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -92,11 +92,11 @@ RegisterActivity extends AppCompatActivity {
                                 });
                             }
                             else{
-                                documentReference = fStore.collection("professor").document(userId);
+                                documentReference = fStore.collection("users").document(userId);
                                 user.put("uName", userName);
                                 user.put("pw", userPass);
                                 user.put("email", userEmail);
-
+                                user.put("isProfessor",Boolean.valueOf("true"));
 
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
