@@ -33,7 +33,7 @@ class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
     String TAG = "subfrag_adapter";
     Context c;
     ArrayList<Subject> models;
-    int [] colors = {Color.BLUE,Color.RED,Color.GREEN,Color.GREEN,Color.DKGRAY,Color.YELLOW,Color.MAGENTA,Color.rgb(50,50,50),Color.rgb(255,94,0),Color.rgb(153,255,255),Color.rgb(255,153,0)};
+    int [] colors = {Color.BLUE,Color.RED,Color.CYAN,Color.GREEN,Color.DKGRAY,Color.YELLOW,Color.MAGENTA,Color.rgb(50,50,50),Color.rgb(255,94,0),Color.rgb(153,255,255),Color.rgb(255,153,0)};
 
     public interface OnItemClickListener {
         void onItemClick(View v, String name) ;
