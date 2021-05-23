@@ -24,6 +24,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -75,6 +76,7 @@ public class sub_adapter extends RecyclerView.Adapter<sub_holder>{
         holder.professor.setText(models.get(position).getProfessor());
         holder.date.setText(models.get(position).getDate());
         //holder.bar.setBackgroundColor(colors[position]);
+        fAuth = FirebaseAuth.getInstance();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,10 +85,19 @@ public class sub_adapter extends RecyclerView.Adapter<sub_holder>{
                 CollectionReference CoRef = fStore.collection("users").document(FirebaseAuth.getInstance().getUid()).collection("database");
                 Map<String, Object> subject = new HashMap<>();
 
+                Map<String, Boolean> student_uid = new HashMap<>();
+
                 CollectionReference coref = fStore.collection("Subject").document(models.get(position).getName()).collection("2021");
+
+                //교수가 출석정보를 볼 때 참조할 곳
+                CollectionReference coref2 = fStore.collection("test").document(models.get(position).getName()).collection("date");
+
+                String userId = fAuth.getCurrentUser().getUid(); //현재 사용자의 uid
 
                 subject.put("professor", models.get(position).getProfessor());
                 subject.put("date", models.get(position).getDate());
+
+                student_uid.put(userId, false);
 
 
                 CoRef.document(models.get(position).getName()).set(subject).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -109,6 +120,19 @@ public class sub_adapter extends RecyclerView.Adapter<sub_holder>{
 
                                 }
                                 else Log.e(TAG,"fail");
+                            }
+                        });
+
+                        coref2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                Log.e("TAG","교수용 출석 확인 디비 갱신 완료");
+                                if(task.isSuccessful()) {
+                                    for(QueryDocumentSnapshot document : task.getResult()) {
+                                        coref2.document(document.getId()).set(student_uid);
+                                        Log.e(TAG,document.getId() + "에 uid 입력됨");
+                                    }
+                                }
                             }
                         });
                     }
