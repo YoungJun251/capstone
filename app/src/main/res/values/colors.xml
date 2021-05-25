@@ -11,6 +11,20 @@
     <color name="skiblue">#50bcdf</color>
     <color name="yellow">#e6b254</color>
     <color name="gray">#d3d3d3</color>
+    <color name="pastellcol1">#95ACBF</color>
+    <color name="pastellcol2">#BBCAD9</color>
+    <color name="pastellcol3">#F2E5DA</color>
+    <color name="pastellcol4">#D9C2A7</color>
+    <color name="pastellcol5">#BFA380</color>
+    <color name="pastellcol6">#FAF1D6</color>
+    <color name="pastellcol7">#FAD4AE</color>
+    <color name="pastellcol8">#FDAFAB</color>
+    <color name="pastellcol9">#FADEE1</color>
+    <color name="pastellcol10">#D9F1F1</color>
+    <color name="pastellcol11">#B6E3E9</color>
+    <color name="pastellcol12">#FBEDC9</color>
+    <color name="pastellcol13">#B6DCB6</color>
+
 
 
 </resources>

@@ -45,6 +45,7 @@ public class subject_frag extends Fragment {
     subfrag_adatper myadapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference doRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
+
     SwipeRefreshLayout swipeRefreshLayout;
     TextView back;
 
@@ -55,7 +56,7 @@ public class subject_frag extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.subject_frag, container, false);
 
-        back=(TextView) rootView.findViewById(R.id.back);
+//      back=(TextView) rootView.findViewById(R.id.back);
         swipeRefreshLayout = (SwipeRefreshLayout)rootView.findViewById(R.id.refresh_layout);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.subject_recyclerview);
 
@@ -108,26 +109,6 @@ public class subject_frag extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         Log.e(TAG,Integer.toString(myadapter.getItemCount()));
     }
-
-//    private void getlist()
-//    {
-//        doRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if(task.isSuccessful())
-//                {
-//                    ArrayList<Subject> arr = new ArrayList<>();
-//                    for (QueryDocumentSnapshot document : task.getResult()) {
-//                        Log.d(TAG, document.getId() + " => " + document.getString("date"));
-//                        arr.add(new Subject(document.getId(),document.getString("date"),document.getString("professor")));
-//                    }
-//                    Log.e(TAG,Integer.toString(arr.size()));
-//                    //setadapter(arr);
-//                }
-//            }
-//        });
-//    }
-
 
 
 

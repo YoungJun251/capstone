@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,15 +13,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.Professor.professor_main;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class LoginActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     EditText email,pw;
     String TAG = "LoginActivity";
+    FirebaseFirestore fb;
+    DocumentReference doRef ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.login);
         pw = findViewById(R.id.pw);
         fAuth = FirebaseAuth.getInstance();
+        fb = FirebaseFirestore.getInstance();
 
         Button btn_login = findViewById(R.id.access);
         TextView textView = findViewById(R.id.register);
@@ -51,9 +61,19 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "logged in", Toast.LENGTH_SHORT).show();
+                            doRef = fb.collection("users").document(FirebaseAuth.getInstance().getUid());
                             Log.e(TAG,fAuth.getUid());
+                            doRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    if(value.getBoolean("isProfessor")){
+                                        startActivity(new Intent(getApplicationContext(), professor_main.class));
+                                    }
+                                    else
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                }
+                            });
 
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else { //비밀번호가 틀리거나 잘못입력
                             Toast.makeText(LoginActivity.this, "error:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

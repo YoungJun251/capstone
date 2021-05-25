@@ -24,7 +24,9 @@
         <activity android:name=".MainFrag.subject.bluetooth.bluetooth" ></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".MainFrag.subject.Subsearch" android:windowSoftInputMode="adjustPan"></activity>
-
+        <activity android:name=".Professor.professor_main"></activity>
+        <activity android:name=".Professor.search.professor_search"></activity>
+        <activity android:name=".Professor.subject.professor_sub_cummu" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name=".RegisterActivity" />
     </application>
 

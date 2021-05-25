@@ -1,5 +1,7 @@
 package com.example.myapplication.MainFrag;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.myapplication.R;
@@ -29,8 +32,17 @@ public class schedule_frag extends Fragment {
     private TextView thursday[] = new TextView[14];
     private TextView friday[] = new TextView[14];
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private Context context;
+    int [] colors;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
     CollectionReference coRef = db.collection("users").document(FirebaseAuth.getInstance().getUid()).collection("database");
-    int [] colors = {Color.BLUE,Color.RED,Color.GREEN,Color.CYAN,Color.DKGRAY,Color.YELLOW,Color.MAGENTA,Color.rgb(50,50,50),Color.rgb(255,94,0),Color.rgb(153,255,255),Color.rgb(255,153,0)};
+   // Resources res = getResources();
+
     private String TAG = "scheduler";
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -120,6 +132,7 @@ public class schedule_frag extends Fragment {
 
 
         getlist();
+        colors = new int[]{ContextCompat.getColor(getActivity(), R.color.pastellcol1), ContextCompat.getColor(getActivity(), R.color.pastellcol2), ContextCompat.getColor(getActivity(), R.color.pastellcol3), ContextCompat.getColor(getActivity(), R.color.pastellcol4), ContextCompat.getColor(getActivity(), R.color.pastellcol5), ContextCompat.getColor(getActivity(), R.color.pastellcol6), ContextCompat.getColor(getActivity(), R.color.pastellcol7), ContextCompat.getColor(getActivity(), R.color.pastellcol8), ContextCompat.getColor(getActivity(), R.color.pastellcol9), ContextCompat.getColor(getActivity(), R.color.pastellcol10), ContextCompat.getColor(getActivity(), R.color.pastellcol11)};
         return rootView;
 
     }

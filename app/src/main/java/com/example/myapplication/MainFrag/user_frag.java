@@ -1,5 +1,6 @@
 package com.example.myapplication.MainFrag;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,6 +31,7 @@ public class user_frag extends Fragment {
     private TextView friday[] = new TextView[14];
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference coRef = db.collection("users").document(FirebaseAuth.getInstance().getUid()).collection("database");
+
     int [] colors = {Color.BLUE,Color.RED,Color.GREEN,Color.CYAN,Color.DKGRAY,Color.YELLOW,Color.MAGENTA,Color.rgb(50,50,50),Color.rgb(255,94,0),Color.rgb(153,255,255),Color.rgb(255,153,0)};
     private String TAG = "scheduler";
     @Override

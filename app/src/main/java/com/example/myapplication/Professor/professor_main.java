@@ -30,7 +30,7 @@ public class professor_main extends AppCompatActivity {
         menu = getBottomNavigationView().getMenu();
 
         //fragement 객체 생성
-        home = new home_frag();
+        home = new professor_home_frag();
         user = new user_frag();
         notice = new notice_frag();
         bottomNavigationView.setOnNavigationItemSelectedListener(naviListener);

@@ -9,7 +9,7 @@
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:orientation="vertical"
-         android:layout_margin="5dp">
+         android:layout_margin="15dp">
          <TableRow
              android:layout_width="match_parent"
              android:layout_height="match_parent"
@@ -62,17 +62,17 @@
              android:layout_width="match_parent"
              android:layout_height="280dp"
              android:layout_weight="1"
-             android:background="@color/skiblue">
+             android:background="@color/white">
 
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="8"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="8:00 ~ 9:00"
                  android:textColor="@color/black"
-                 android:textStyle="bold" />
+                 android:textStyle="bold|italic" />
 
              <TextView
                  android:id="@+id/monday0"
@@ -134,11 +134,11 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="9"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="09:00~10:00"
                  android:textColor="@color/black"
-                 android:textStyle="bold"
+                 android:textStyle="bold|italic"
                  />
 
              <TextView
@@ -201,12 +201,11 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="10"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="10:00 ~ 11:00"
                  android:textColor="@color/black"
-                 android:textStyle="bold"
-                 />
+                 android:textStyle="bold|italic" />
 
              <TextView
                  android:id="@+id/monday2"
@@ -268,11 +267,11 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="11"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="11:00 ~ 12:00"
                  android:textColor="@color/black"
-                 android:textStyle="bold" />
+                 android:textStyle="bold|italic" />
 
              <TextView
                  android:id="@+id/monday3"
@@ -334,11 +333,12 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="12"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="12:00 ~ 13:00"
+                 android:textStyle="bold|italic"
                  android:textColor="@color/black"
-                 android:textStyle="bold" />
+                  />
 
              <TextView
                  android:id="@+id/monday4"
@@ -400,12 +400,11 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="13"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="13:00 ~ 14:00"
                  android:textColor="@color/black"
-                 android:textStyle="bold"
-                 />
+                 android:textStyle="bold|italic" />
 
              <TextView
                  android:id="@+id/monday5"
@@ -467,11 +466,12 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="14"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="14:00 ~ 15:00"
+                 android:textStyle="bold|italic"
                  android:textColor="@color/black"
-                 android:textStyle="bold"
+
                  />
 
              <TextView
@@ -534,11 +534,12 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="15"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="15:00 ~ 16:00"
+                 android:textStyle="bold|italic"
                  android:textColor="@color/black"
-                 android:textStyle="bold"
+
                  />
 
              <TextView
@@ -601,12 +602,11 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="16"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="16:00 ~ 17:00"
                  android:textColor="@color/black"
-                 android:textStyle="bold"
-                 />
+                 android:textStyle="bold|italic" />
 
              <TextView
                  android:id="@+id/monday8"
@@ -658,6 +658,7 @@
                  android:text="금"
                  android:textColor="@color/white" />
          </TableRow>
+
          <TableRow
              android:layout_width="match_parent"
              android:layout_height="match_parent"
@@ -668,12 +669,11 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="17"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="17:00 ~ 18:00"
                  android:textColor="@color/black"
-                 android:textStyle="bold"
-                 />
+                 android:textStyle="bold|italic" />
 
              <TextView
                  android:id="@+id/monday9"
@@ -725,6 +725,7 @@
                  android:text="금"
                  android:textColor="@color/white" />
          </TableRow>
+
          <TableRow
              android:layout_width="match_parent"
              android:layout_height="match_parent"
@@ -735,12 +736,11 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="18"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="18:00 ~ 19:00"
                  android:textColor="@color/black"
-                 android:textStyle="bold"
-                 />
+                 android:textStyle="bold|italic" />
 
              <TextView
                  android:id="@+id/monday10"
@@ -802,11 +802,11 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="19"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="19:00 ~ 20:00"
                  android:textColor="@color/black"
-                 android:textStyle="bold" />
+                 android:textStyle="bold|italic" />
 
              <TextView
                  android:id="@+id/monday11"
@@ -868,12 +868,12 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="20"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="20:00 ~ 21:00"
+                 android:textStyle="bold|italic"
                  android:textColor="@color/black"
-                 android:textStyle="bold"
-                 />
+                  />
 
              <TextView
                  android:id="@+id/monday12"
@@ -935,11 +935,12 @@
                  android:layout_width="wrap_content"
                  android:layout_height="match_parent"
                  android:layout_weight="1"
-                 android:background="@color/skiblue"
-                 android:gravity="right"
-                 android:text="21"
+                 android:background="@drawable/cell_shape"
+                 android:gravity="center"
+                 android:text="21:00 ~ 22:00"
                  android:textColor="@color/black"
-                 android:textStyle="bold"
+                 android:textStyle="bold|italic"
+
                  />
 
              <TextView
