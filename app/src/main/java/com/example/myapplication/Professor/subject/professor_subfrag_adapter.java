@@ -2,12 +2,14 @@ package com.example.myapplication.Professor.subject;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -29,6 +31,7 @@ class professor_subfrag_adapter extends RecyclerView.Adapter<professor_subfrag_a
     String TAG = "professor_subfrag_adapter";
     Context c;
     ArrayList<Subject> models;
+
     int [] colors ;//= {Color.BLUE,Color.RED,Color.CYAN,Color.GREEN,Color.DKGRAY,Color.YELLOW,Color.MAGENTA,Color.rgb(50,50,50),Color.rgb(255,94,0),Color.rgb(153,255,255),Color.rgb(255,153,0)};
 
     public interface OnItemClickListener {
@@ -74,8 +77,6 @@ class professor_subfrag_adapter extends RecyclerView.Adapter<professor_subfrag_a
             public void onClick(View v) {
                 Log.e(TAG,"view click event !");
                 mListener.onItemClick(v,models.get(position).getName());
-
-
             }
         });
     }

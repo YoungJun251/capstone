@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myapplication">
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:allowBackup="true"
@@ -12,21 +12,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-
+        <activity android:name=".Professor.subject.attandance"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainFrag.subject.sub_commu" android:theme="@android:style/Theme.Dialog"></activity>
-        <activity android:name=".MainFrag.subject.bluetooth.bluetooth" ></activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".MainFrag.subject.Subsearch" android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".Professor.professor_main"></activity>
-        <activity android:name=".Professor.search.professor_search"></activity>
-        <activity android:name=".Professor.subject.professor_sub_cummu" android:theme="@android:style/Theme.Dialog"></activity>
+        <activity
+            android:name=".MainFrag.subject.sub_commu"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".MainFrag.subject.bluetooth.bluetooth" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainFrag.subject.Subsearch"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".Professor.professor_main" />
+        <activity android:name=".Professor.search.professor_search" />
+        <activity
+            android:name=".Professor.subject.professor_sub_cummu"
+            android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".RegisterActivity" />
     </application>
 

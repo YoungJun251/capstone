@@ -11,23 +11,31 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.DAO.Commu;
+import com.example.myapplication.DAO.Subject;
 import com.example.myapplication.MainFrag.subject.bluetooth.bluetooth;
 
+import com.example.myapplication.MainFrag.subject.sub_commu;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Map;
 
 public class professor_sub_cummu extends Activity {
     private static String TAG = "sub_commu";
@@ -96,10 +104,38 @@ public class professor_sub_cummu extends Activity {
         myadapter.setOnItemClickListener(new pro_cummu_adapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
+                HashSet<String> attendUid = new HashSet<>();
+                HashSet<String> unAttendUid = new HashSet<>();
 
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                CollectionReference collectionReference = db.collection("test");
+                DocumentReference docRef = collectionReference.document(subject_name).collection("date").document("05.03");
+
+                docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        Map<String, Object> map = value.getData();
+
+                        for(String key : map.keySet()) {
+                            if(((Boolean)map.get(key)).booleanValue() == Boolean.parseBoolean("true")) {
+                                attendUid.add(key);
+                                Log.e("TAG","commu java"+key);
+                            } else {
+                                unAttendUid.add(key);
+                                Log.e("TAG","commu java"+key);
+                            }
+                        }
+
+                        Intent intent = new Intent(professor_sub_cummu.this, attandance.class);
+                        intent.putExtra("name",subject_name );
+                        intent.putExtra("attendUid",attendUid);
+                        intent.putExtra("unAttendUid",unAttendUid);
+                        //intent.putExtra("date",) 날짜부분 받아오는거 해야함
+                        startActivity(intent);
+                    }
+                });
 
                 // 날짜 클릭하면 새로운 activity 이동 필요
-
 
             }
         });
