@@ -134,6 +134,13 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="모델 생성"
+            ></Button>
         <Button
             android:id="@+id/btn_regi"
             android:layout_width="100dp"

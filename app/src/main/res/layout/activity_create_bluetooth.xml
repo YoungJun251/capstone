@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:paddingTop="10dp" android:paddingBottom="10dp" android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal">
+
+        <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="connection state : "/>
+
+        <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:text="" android:id="@+id/connection_status_textview"/>
+
+    </LinearLayout>
+
+
+    -
+
+    <ListView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/message_listview"/>
+
+</LinearLayout>

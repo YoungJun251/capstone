@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Professor.professor_main;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -28,7 +29,7 @@ public class
 RegisterActivity extends AppCompatActivity {
 
     EditText email,name,pw;
-    Button btn_register;
+    Button btn_register,btn_create;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
@@ -43,6 +44,7 @@ RegisterActivity extends AppCompatActivity {
         pw = findViewById(R.id.login_pw);
         email = findViewById(R.id.login_email);
         btn_register = findViewById(R.id.btn_regi);
+        btn_create = findViewById(R.id.btn_create);
         prochk = findViewById(R.id.chk_pro);
         stuchk = findViewById(R.id.chk_stu);
 
@@ -54,6 +56,13 @@ RegisterActivity extends AppCompatActivity {
             finish();
         }
         //버튼 클릭시 수행행
+
+        btn_create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), createBluetooth.class));
+            }
+        });
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
