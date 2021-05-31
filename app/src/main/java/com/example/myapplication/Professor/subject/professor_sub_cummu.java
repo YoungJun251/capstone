@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.DAO.Commu;
+import com.example.myapplication.DAO.Commu2;
 import com.example.myapplication.DAO.Subject;
 import com.example.myapplication.MainFrag.subject.bluetooth.bluetooth;
 
@@ -37,19 +38,22 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 
-public class professor_sub_cummu extends Activity {
+public class
+professor_sub_cummu extends Activity {
     private static String TAG = "sub_commu";
     Button btn_search;
     EditText sub_name;
     RecyclerView recyclerView;
     pro_cummu_adapter myadapter;
     Intent intent;
+    String subject_name;
     //ArrayList<Subject> arr;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference docRef = db.collection("Subject");
     DocumentReference doRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
-    String subject_name;
+    CollectionReference coRef2 ;//
+
     //.document("database");
     //ArrayList<>;
 
@@ -62,32 +66,37 @@ public class professor_sub_cummu extends Activity {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.sub_communication);
-
-
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerview3);
         intent = getIntent();
+
         subject_name = intent.getStringExtra("coRef");
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview3);
 
-        CollectionReference coref = doRef.collection("database").document(intent.getStringExtra("coRef")).collection("2021");
+        //subject_name = intent.getStringExtra("coRef");
 
+        CollectionReference coref = doRef.collection("database").document(subject_name).collection("2021");
+        coRef2 = db.collection("test").document(subject_name).collection("date");
 
-        coref.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        coRef2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful())
                 {
-                    ArrayList<Commu> arr = new ArrayList<>();
+                    ArrayList<Commu2> arr = new ArrayList<>();
                     int i = 1;
+                    int attendance = 0;
                     for(QueryDocumentSnapshot document: task.getResult())
                     {
-                        String chk ="X";
-                        Log.e(TAG,document.getId());
-                        if(document.get("attendance").toString() == "true")
+                        Map<String,Object> map;
+                        map = document.getData();
+
+                        String name = map.toString();
+                        String slice [] = name.split(",");
+                        for(String str : slice)
                         {
-                            chk = "O";
-                        }else chk = "X";
-                        Log.e(TAG,document.get("attendance").toString());
-                        arr.add(new Commu(Integer.toString(i),document.getId(),chk));
+                            if(str.contains("true")) attendance++;
+                        }
+
+                        arr.add(new Commu2(Integer.toString(i),document.getId(),attendance + "/" + slice.length));
                         i++;
                     }
                     setadapter(arr);
@@ -97,19 +106,19 @@ public class professor_sub_cummu extends Activity {
 
 
     }
-    private void setadapter(ArrayList<Commu> arr) {
+    private void setadapter(ArrayList<Commu2> arr) {
         myadapter = new pro_cummu_adapter(this,arr);
         recyclerView.setAdapter(myadapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         myadapter.setOnItemClickListener(new pro_cummu_adapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View v, int position) {
+            public void onItemClick(View v, String name) {
                 HashSet<String> attendUid = new HashSet<>();
                 HashSet<String> unAttendUid = new HashSet<>();
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 CollectionReference collectionReference = db.collection("test");
-                DocumentReference docRef = collectionReference.document(subject_name).collection("date").document("05.03");
+                DocumentReference docRef = collectionReference.document(subject_name).collection("date").document(name);
 
                 docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
@@ -127,10 +136,10 @@ public class professor_sub_cummu extends Activity {
                         }
 
                         Intent intent = new Intent(professor_sub_cummu.this, attandance.class);
-                        intent.putExtra("name",subject_name );
+                        intent.putExtra("name",subject_name);
                         intent.putExtra("attendUid",attendUid);
                         intent.putExtra("unAttendUid",unAttendUid);
-                        //intent.putExtra("date",) 날짜부분 받아오는거 해야함
+                        intent.putExtra("date",name);// 날짜부분 받아오는거 해야함
                         startActivity(intent);
                     }
                 });

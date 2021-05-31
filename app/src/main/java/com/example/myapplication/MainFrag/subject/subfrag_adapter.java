@@ -33,7 +33,7 @@ class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
     String TAG = "subfrag_adapter";
     Context c;
     ArrayList<Subject> models;
-    int [] colors = {Color.BLUE,Color.RED,Color.CYAN,Color.GREEN,Color.DKGRAY,Color.YELLOW,Color.MAGENTA,Color.rgb(50,50,50),Color.rgb(255,94,0),Color.rgb(153,255,255),Color.rgb(255,153,0)};
+    int [] colors ;//= {Color.BLUE,Color.RED,Color.CYAN,Color.GREEN,Color.DKGRAY,Color.YELLOW,Color.MAGENTA,Color.rgb(50,50,50),Color.rgb(255,94,0),Color.rgb(153,255,255),Color.rgb(255,153,0)};
 
     public interface OnItemClickListener {
         void onItemClick(View v, String name) ;
@@ -57,6 +57,8 @@ class subfrag_adatper extends RecyclerView.Adapter<subfrag_adatper.ViewHolder>{
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.asdf,parent,false);
+        colors = new int[]{Color.parseColor("#95ACBF"),Color.parseColor("#BBCAD9"),Color.parseColor("#F2E5DA"),Color.parseColor("#D9C2A7"),Color.parseColor("#BFA380"),Color.parseColor("#FAF1D6"),Color.parseColor("#FAD4AE"),Color.parseColor("#FDAFAB"),Color.parseColor("#FADEE1"),Color.parseColor("#D9F1F1"),Color.parseColor("#B6E3E9"),Color.parseColor("#FBEDC9"),Color.parseColor("#B6DCB6")};
+
         return new ViewHolder(view);
     }
 

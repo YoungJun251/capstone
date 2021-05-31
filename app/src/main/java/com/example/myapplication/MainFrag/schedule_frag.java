@@ -156,6 +156,7 @@ public class schedule_frag extends Fragment {
                             String[] str = date.split("/");
                             for(String l : str)
                             {
+                                Log.e(TAG,l + " 분리");
                                 checkday(l,professor,subject,index);
                             }
                         }
@@ -170,37 +171,39 @@ public class schedule_frag extends Fragment {
 
     public void checkday(String date,String professor,String subject,int index)
     {
+        Log.e(TAG,date.charAt(0)+"a " + date.length());
         switch(date.charAt(0)){
             case '월' :
-                for(int i=1;i<date.length();i++)
+                for(int i=date.charAt(1)-'0';i<date.charAt(1)-'0'+date.length();i++)
                 {
+                    Log.e(TAG, String.format(date + " - > %d", i));
                     monday[i].setText(subject + "\n"+ professor);
                     monday[i].setBackgroundColor(colors[index]);
                 }
                 break;
             case '화' :
-                for(int i=1;i<date.length();i++)
+                for(int i=date.charAt(1)-'0';date.charAt(1)-'0'+i<date.length();i++)
                 {
                     tuesday[i].setText(subject + "\n"+ professor);
                     tuesday[i].setBackgroundColor(colors[index]);
                 }
                 break;
             case '수' :
-                for(int i=1;i<date.length();i++)
+                for(int i=date.charAt(1)-'0';i<date.charAt(1)-'0'+date.length();i++)
                 {
                     wednesday[i].setText(subject + "\n"+ professor);
                     wednesday[i].setBackgroundColor(colors[index]);
                 }
                 break;
             case '목' :
-                for(int i=1;i<date.length();i++)
+                for(int i=date.charAt(1)-'0';i<date.charAt(1)-'0'+date.length();i++)
                 {
                     thursday[i].setText(subject + "\n"+ professor);
                     thursday[i].setBackgroundColor(colors[index]);
                 }
                 break;
             case '금' :
-                for(int i=1;i<date.length();i++)
+                for(int i=date.charAt(1)-'0';i<date.charAt(1)-'0'+date.length();i++)
                 {
                     friday[i].setText(subject + "\n"+ professor);
                     friday[i].setBackgroundColor(colors[index]);

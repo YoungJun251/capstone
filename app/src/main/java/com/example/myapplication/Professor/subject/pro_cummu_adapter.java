@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.DAO.Commu;
+import com.example.myapplication.DAO.Commu2;
 import com.example.myapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -20,12 +21,12 @@ import java.util.ArrayList;
 class pro_cummu_adapter extends RecyclerView.Adapter<pro_cummu_adapter.ViewHolder>{
     String TAG = "sub_commu_adapter";
     Context c;
-    ArrayList<Commu> models;
+    ArrayList<Commu2> models;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String send = FirebaseAuth.getInstance().getUid();
 
     public interface OnItemClickListener {
-        void onItemClick(View v, int position) ;
+        void onItemClick(View v, String name);
     }
 
     // 리스너 객체 참조를 저장하는 변수
@@ -36,7 +37,7 @@ class pro_cummu_adapter extends RecyclerView.Adapter<pro_cummu_adapter.ViewHolde
         this.mListener = listener ;
     }
 
-    public pro_cummu_adapter(Context c, ArrayList<Commu> models)
+    public pro_cummu_adapter(Context c, ArrayList<Commu2> models)
     {
         this.c = c;
         this.models = models;
@@ -56,7 +57,7 @@ class pro_cummu_adapter extends RecyclerView.Adapter<pro_cummu_adapter.ViewHolde
 
         holder.cnt.setText(models.get(position).getCnt());
         holder.subdate.setText(models.get(position).getDate());
-        holder.chk.setText(models.get(position).getChk());
+        holder.chk.setText(models.get(position).getNum());
 
 
         FirebaseFirestore fStore = FirebaseFirestore.getInstance();
@@ -65,7 +66,7 @@ class pro_cummu_adapter extends RecyclerView.Adapter<pro_cummu_adapter.ViewHolde
             @Override
             public void onClick(View v) {
                 Log.e(TAG,"view click event !");
-                mListener.onItemClick(v, position);
+                mListener.onItemClick(v, models.get(position).getDate());
 
             }
         });
