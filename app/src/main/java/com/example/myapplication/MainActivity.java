@@ -19,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     Menu menu;
     Bundle bundle;
     Fragment home,user,notice;
+    OnBackPressedListener mlistener;
+
+    public interface OnBackPressedListener { void onBackPressed(); }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,4 +69,10 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
     }
+    public void setOnBackPressedListener(OnBackPressedListener listener){
+        this.mlistener = listener; }
+        @Override public void onBackPressed() {
+        if(mlistener!=null){ mlistener.onBackPressed(); }
+        else{ super.onBackPressed(); } }
+
 }

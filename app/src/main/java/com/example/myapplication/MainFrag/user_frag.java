@@ -7,200 +7,69 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.myapplication.MainActivity;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class user_frag extends Fragment {
-    private TextView monday[] = new TextView[14];
-    private TextView tuesday[] = new TextView[14];
-    private TextView wednesday[] = new TextView[14];
-    private TextView thursday[] = new TextView[14];
-    private TextView friday[] = new TextView[14];
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference coRef = db.collection("users").document(FirebaseAuth.getInstance().getUid()).collection("database");
 
-    int [] colors = {Color.BLUE,Color.RED,Color.GREEN,Color.CYAN,Color.DKGRAY,Color.YELLOW,Color.MAGENTA,Color.rgb(50,50,50),Color.rgb(255,94,0),Color.rgb(153,255,255),Color.rgb(255,153,0)};
-    private String TAG = "scheduler";
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+public class user_frag extends Fragment implements MainActivity.OnBackPressedListener {
 
-        monday[0] = (TextView) getView().findViewById(R.id.monday0);
-        monday[1] = (TextView) getView().findViewById(R.id.monday1);
-        monday[2] = (TextView) getView().findViewById(R.id.monday2);
-        monday[3] = (TextView) getView().findViewById(R.id.monday3);
-        monday[4] = (TextView) getView().findViewById(R.id.monday4);
-        monday[5] = (TextView) getView().findViewById(R.id.monday5);
-        monday[6] = (TextView) getView().findViewById(R.id.monday6);
-        monday[7] = (TextView) getView().findViewById(R.id.monday7);
-        monday[8] = (TextView) getView().findViewById(R.id.monday8);
-        monday[9] = (TextView) getView().findViewById(R.id.monday9);
-        monday[10] = (TextView) getView().findViewById(R.id.monday10);
-        monday[11] = (TextView) getView().findViewById(R.id.monday11);
-        monday[12] = (TextView) getView().findViewById(R.id.monday12);
-        monday[13] = (TextView) getView().findViewById(R.id.monday13);
-        tuesday[0] = (TextView) getView().findViewById(R.id.tuesday0);
-        tuesday[1] = (TextView) getView().findViewById(R.id.tuesday1);
-        tuesday[2] = (TextView) getView().findViewById(R.id.tuesday2);
-        tuesday[3] = (TextView) getView().findViewById(R.id.tuesday3);
-        tuesday[4] = (TextView) getView().findViewById(R.id.tuesday4);
-        tuesday[5] = (TextView) getView().findViewById(R.id.tuesday5);
-        tuesday[6] = (TextView) getView().findViewById(R.id.tuesday6);
-        tuesday[7] = (TextView) getView().findViewById(R.id.tuesday7);
-        tuesday[8] = (TextView) getView().findViewById(R.id.tuesday8);
-        tuesday[9] = (TextView) getView().findViewById(R.id.tuesday9);
-        tuesday[10] = (TextView) getView().findViewById(R.id.tuesday10);
-        tuesday[11] = (TextView) getView().findViewById(R.id.tuesday11);
-        tuesday[12] = (TextView) getView().findViewById(R.id.tuesday12);
-        tuesday[13] = (TextView) getView().findViewById(R.id.tuesday13);
-        wednesday[0] = (TextView) getView().findViewById(R.id.wednesday0);
-        wednesday[1] = (TextView) getView().findViewById(R.id.wednesday1);
-        wednesday[2] = (TextView) getView().findViewById(R.id.wednesday2);
-        wednesday[3] = (TextView) getView().findViewById(R.id.wednesday3);
-        wednesday[4] = (TextView) getView().findViewById(R.id.wednesday4);
-        wednesday[5] = (TextView) getView().findViewById(R.id.wednesday5);
-        wednesday[6] = (TextView) getView().findViewById(R.id.wednesday6);
-        wednesday[7] = (TextView) getView().findViewById(R.id.wednesday7);
-        wednesday[8] = (TextView) getView().findViewById(R.id.wednesday8);
-        wednesday[9] = (TextView) getView().findViewById(R.id.wednesday9);
-        wednesday[10] = (TextView) getView().findViewById(R.id.wednesday10);
-        wednesday[11] = (TextView) getView().findViewById(R.id.wednesday11);
-        wednesday[12] = (TextView) getView().findViewById(R.id.wednesday12);
-        wednesday[13] = (TextView) getView().findViewById(R.id.wednesday13);
-        thursday[0] = (TextView) getView().findViewById(R.id.thursday0);
-        thursday[1] = (TextView) getView().findViewById(R.id.thursday1);
-        thursday[2] = (TextView) getView().findViewById(R.id.thursday2);
-        thursday[3] = (TextView) getView().findViewById(R.id.thursday3);
-        thursday[4] = (TextView) getView().findViewById(R.id.thursday4);
-        thursday[5] = (TextView) getView().findViewById(R.id.thursday5);
-        thursday[6] = (TextView) getView().findViewById(R.id.thursday6);
-        thursday[7] = (TextView) getView().findViewById(R.id.thursday7);
-        thursday[8] = (TextView) getView().findViewById(R.id.thursday8);
-        thursday[9] = (TextView) getView().findViewById(R.id.thursday9);
-        thursday[10] = (TextView) getView().findViewById(R.id.thursday10);
-        thursday[11] = (TextView) getView().findViewById(R.id.thursday11);
-        thursday[12] = (TextView) getView().findViewById(R.id.thursday12);
-        thursday[13] = (TextView) getView().findViewById(R.id.thursday13);
-        friday[0] = (TextView) getView().findViewById(R.id.friday0);
-        friday[1] = (TextView) getView().findViewById(R.id.friday1);
-        friday[2] = (TextView) getView().findViewById(R.id.friday2);
-        friday[3] = (TextView) getView().findViewById(R.id.friday3);
-        friday[4] = (TextView) getView().findViewById(R.id.friday4);
-        friday[5] = (TextView) getView().findViewById(R.id.friday5);
-        friday[6] = (TextView) getView().findViewById(R.id.friday6);
-        friday[7] = (TextView) getView().findViewById(R.id.friday7);
-        friday[8] = (TextView) getView().findViewById(R.id.friday8);
-        friday[9] = (TextView) getView().findViewById(R.id.friday9);
-        friday[10] = (TextView) getView().findViewById(R.id.friday10);
-        friday[11] = (TextView) getView().findViewById(R.id.friday11);
-        friday[12] = (TextView) getView().findViewById(R.id.friday12);
-        friday[13] = (TextView) getView().findViewById(R.id.friday13);
-
-
-    }
+    Button logout;
+    TextView name;
+    DocumentReference doRef;
+    FirebaseFirestore fb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         Log.e("err","123");
         ViewGroup rootView = (ViewGroup) inflater.inflate(
-                R.layout.fragment_schedule, container, false);
+                R.layout.mypage, container, false);
         Log.e("err", rootView.toString());
 
+        logout = (Button)rootView.findViewById(R.id.id_logout);
+        name = (TextView)rootView.findViewById(R.id.id_name);
+        fb = FirebaseFirestore.getInstance();
+        doRef = fb.collection("users").document(FirebaseAuth.getInstance().getUid());
+        doRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    DocumentSnapshot docu = task.getResult();
+                    name.setText(docu.getString("uName"));
+                }
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                onBackPressed();
+            }
+        });
 
-        getlist();
         return rootView;
 
     }
 
-    public void getlist()
-    {
-        coRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            int index =0;
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful())
-                {
-                    for(QueryDocumentSnapshot document : task.getResult())
-                    {
-                        String date = document.get("date").toString();
-                        String professor = document.get("professor").toString();
-                        String subject = document.getId();
-                        Log.e(TAG,date);
-                        if(date.contains("/"))
-                        {
-                            String[] str = date.split("/");
-                            for(String l : str)
-                            {
-                                checkday(l,professor,subject,index);
-                            }
-                        }
-                        else
-                            checkday(date,professor,subject,index);
-                        index++;
-                    }
-                }
-            }
-        });
+
+    @Override
+    public void onBackPressed() {
     }
-
-    public void checkday(String date,String professor,String subject,int index)
-    {
-        switch(date.charAt(0)){
-            case '월' :
-                for(int i=1;i<date.length();i++)
-                {
-                    monday[i].setText(subject + "\n"+ professor);
-                    monday[i].setBackgroundColor(colors[index]);
-                }
-                break;
-            case '화' :
-                for(int i=1;i<date.length();i++)
-                {
-                    tuesday[i].setText(subject + "\n"+ professor);
-                    tuesday[i].setBackgroundColor(colors[index]);
-                }
-                break;
-            case '수' :
-                for(int i=1;i<date.length();i++)
-                {
-                    wednesday[i].setText(subject + "\n"+ professor);
-                    wednesday[i].setBackgroundColor(colors[index]);
-                }
-                break;
-            case '목' :
-                for(int i=1;i<date.length();i++)
-                {
-                    thursday[i].setText(subject + "\n"+ professor);
-                    thursday[i].setBackgroundColor(colors[index]);
-                }
-                break;
-            case '금' :
-                for(int i=1;i<date.length();i++)
-                {
-                    friday[i].setText(subject + "\n"+ professor);
-                    friday[i].setBackgroundColor(colors[index]);
-                }
-                break;
-
-        }
-    }
-
-
-
-
-
 }

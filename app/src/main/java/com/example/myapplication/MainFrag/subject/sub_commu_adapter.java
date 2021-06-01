@@ -84,6 +84,7 @@ class sub_commu_adapter extends RecyclerView.Adapter<sub_commu_adapter.ViewHolde
     }
 
 
+
     @Override
     public int getItemCount() {
         return models.size();
