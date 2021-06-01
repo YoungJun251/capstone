@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:background="@color/skiblue" />
+
+        <ImageView
+        android:id="@+id/iv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:scaleType="centerCrop"
+        android:src="@drawable/round"
+        android:background="@color/skiblue"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/id_mypage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Page"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        ></TextView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/id_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:layout_below="@id/id_name"
+        android:layout_toRightOf="@id/id_mypage_view"
+        android:layout_marginLeft="50dp"
+        android:background="@drawable/white_btn"
+        android:layout_marginTop="5dp"
+        ></androidx.appcompat.widget.AppCompatButton>
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center"
+        android:background="@color/black"
+        android:layout_below="@+id/id_mypage"
+        ></View>
+
+    <ImageView
+        android:id="@+id/id_mypage_view"
+        android:layout_width="140dp"
+        android:layout_height="159dp"
+        android:src="@drawable/ic_free_icon_student_card_3068500"
+        android:layout_below="@+id/id_mypage"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"></ImageView>
+    <TextView
+        android:id="@+id/id_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이름"
+        android:layout_toRightOf="@id/id_mypage_view"
+        android:layout_below="@id/id_mypage"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="70dp"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        ></TextView>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/id_mypage_view"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="70dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학과 >"></TextView>
+        <TextView
+            android:id="@+id/id_department"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="18dp"
+            android:textStyle="bold|italic"
+            android:text="소프트웨어"
+            android:padding="5dp"
+            android:gravity="center"
+            android:background="@drawable/cell_shape"
+            ></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="학년 >"
+            ></TextView>
+        <TextView
+            android:id="@+id/id_degree"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="4학년"
+            android:textSize="18dp"
+            android:textStyle="bold|italic"
+            android:gravity="center"
+            android:padding="5dp"
+            android:background="@drawable/cell_shape"
+            ></TextView>
+    </LinearLayout>
+</RelativeLayout>
