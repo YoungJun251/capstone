@@ -48,8 +48,9 @@
         android:id="@+id/recyclerview4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="100dp"
         android:padding="10dp"
+        android:background="@drawable/cell_shape"
         >
 
 

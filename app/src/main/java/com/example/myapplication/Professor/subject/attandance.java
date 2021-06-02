@@ -78,23 +78,12 @@ public class attandance extends AppCompatActivity {
                     for(DocumentSnapshot tmp : doc) {
                         String UID = tmp.getId();
                         String userName = tmp.get("uName").toString();
-//                        DocumentReference docu = userId.document(UID).collection("database").document(course).collection("2021").document(date);
-//                        docu.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                if(task.isSuccessful())
-//                                {
-//                                    DocumentSnapshot document = task.getResult();
-//                                    Date time = document.getDate("time");
-//                                }
-//                            }
-//                        });
 
 
-                        if(attendUid.contains(UID)) { //출석한 사람
+                        if(attendUid.contains(UID) ) { //출석한 사람
                             attand.add(userName);
                         }
-                        if(unAttendUid.contains(UID)){
+                        if(unAttendUid.contains(UID)&& tmp.getBoolean("isProfessor")==false){
                             unAttand.add(userName);
 
                         }
@@ -104,14 +93,14 @@ public class attandance extends AppCompatActivity {
                     Log.e("TAG","출석 안한 사람 모임");
                     for(String n : unAttand ) {
                         String name = unAttand.get(number-1);
-                        arr.add(new attend(Integer.toString(number),name,"X"));
+                        arr.add(new attend(Integer.toString(number),name," X "));
                         number++;
                         Log.e("TAG", n);
                     }
                     int index = 0;
                     Log.e("TAG","출석 한 사람 모임");
                     for(String n : attand ) {
-                        arr.add(new attend(Integer.toString(number),attand.get(index),"O"));
+                        arr.add(new attend(Integer.toString(number),attand.get(index)," O "));
                         number++;
                         index++;
                         Log.e("TAG", n);

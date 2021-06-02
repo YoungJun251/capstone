@@ -1,6 +1,7 @@
 package com.example.myapplication.MainFrag.subject.bluetooth;
 
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,6 +36,12 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import static java.lang.Thread.sleep;
 
@@ -44,7 +51,8 @@ public class bluetooth extends AppCompatActivity
     private final int REQUEST_BLUETOOTH_ENABLE = 100;
     private TextView mConnectionStatus;
     private EditText mInputEditText;
-
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CollectionReference CoRef = db.collection("users").document(FirebaseAuth.getInstance().getUid()).collection("Log");
     ConnectedTask mConnectedTask = null;
     static BluetoothAdapter mBluetoothAdapter;
     private String mConnectedDeviceName = null;
@@ -103,6 +111,9 @@ public class bluetooth extends AppCompatActivity
 
             showPairedDevicesListDialog();
         }
+
+
+
 
 
     }
@@ -266,7 +277,7 @@ public class bluetooth extends AppCompatActivity
 
         @Override
         protected void onProgressUpdate(String... recvMessage) {
-
+            Log.e(TAG,recvMessage.toString());
             mConversationArrayAdapter.insert(mConnectedDeviceName + ": " + recvMessage[0], 0);
             String quit = recvMessage[0];
             if(quit.equals("q"))

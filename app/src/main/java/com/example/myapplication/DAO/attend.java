@@ -8,7 +8,7 @@ public class attend {
 
     public attend(String num,String name, String chk)
     {
-        this.num = num;
+        this.num = "    "+num+"    ";
         this.name = name;
         this.chk = chk;
     }

@@ -68,7 +68,8 @@ class attedance_adapter extends RecyclerView.Adapter<attedance_adapter.ViewHolde
         holder.num.setText(models.get(position).getNum());
         holder.name.setText(models.get(position).getName());
         holder.attend.setText(models.get(position).getChk());
-
+        if(models.get(position).getChk().contains("X"))
+            holder.attend.setTextColor(Color.RED);
 
         FirebaseFirestore fStore = FirebaseFirestore.getInstance();
 
