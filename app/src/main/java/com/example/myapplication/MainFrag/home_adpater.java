@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.MainFrag.NoticeFrag.notice_frag;
 import com.example.myapplication.MainFrag.subject.subject_frag;
 import com.example.myapplication.R;
 
@@ -47,8 +48,10 @@ public class home_adpater extends RecyclerView.Adapter<home_holder> {
                 AppCompatActivity activity  = (AppCompatActivity)v.getContext();
                 subject_frag sub = new subject_frag();
                 schedule_frag schedule = new schedule_frag();
+                notice_frag notice = new notice_frag();
                 if(position == 0 ) activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,sub).addToBackStack(null).commit();
                 if(position == 1) activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,schedule).addToBackStack(null).commit();
+                if(position == 2) activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,notice).addToBackStack(null).commit();
             }
             
         });

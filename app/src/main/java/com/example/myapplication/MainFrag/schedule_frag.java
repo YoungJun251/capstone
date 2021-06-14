@@ -3,6 +3,7 @@ package com.example.myapplication.MainFrag;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -179,6 +180,8 @@ public class schedule_frag extends Fragment {
                     Log.e(TAG, String.format(date + " - > %d", i));
                     monday[i].setText(subject + "\n"+ professor);
                     monday[i].setBackgroundColor(colors[index]);
+                    //monday[i].setBackground(ContextCompat.getDrawable(getContext(),R.drawable.cell_shape));
+
                 }
                 break;
             case '화' :
@@ -186,6 +189,7 @@ public class schedule_frag extends Fragment {
                 {
                     tuesday[i].setText(subject + "\n"+ professor);
                     tuesday[i].setBackgroundColor(colors[index]);
+                    //tuesday[i].setBackground(ContextCompat.getDrawable(getContext(),R.drawable.cell_shape));
                 }
                 break;
             case '수' :
@@ -193,6 +197,7 @@ public class schedule_frag extends Fragment {
                 {
                     wednesday[i].setText(subject + "\n"+ professor);
                     wednesday[i].setBackgroundColor(colors[index]);
+                    //wednesday[i].setBackground(ContextCompat.getDrawable(getContext(),R.drawable.cell_shape));
                 }
                 break;
             case '목' :
@@ -200,6 +205,7 @@ public class schedule_frag extends Fragment {
                 {
                     thursday[i].setText(subject + "\n"+ professor);
                     thursday[i].setBackgroundColor(colors[index]);
+                    //thursday[i].setBackground(ContextCompat.getDrawable(getContext(),R.drawable.cell_shape));
                 }
                 break;
             case '금' :
@@ -207,6 +213,7 @@ public class schedule_frag extends Fragment {
                 {
                     friday[i].setText(subject + "\n"+ professor);
                     friday[i].setBackgroundColor(colors[index]);
+                    //friday[i].setBackground(ContextCompat.getDrawable(getContext(),R.drawable.cell_shape));
                 }
                 break;
 

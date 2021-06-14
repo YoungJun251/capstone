@@ -54,10 +54,6 @@ professor_sub_cummu extends Activity {
     DocumentReference doRef = db.collection("users").document(FirebaseAuth.getInstance().getUid());
     CollectionReference coRef2 ;//
 
-    //.document("database");
-    //ArrayList<>;
-
-    //private sub_adapter.OnItemClickListener mListener = null;
 
 
     @Override
@@ -83,9 +79,10 @@ professor_sub_cummu extends Activity {
                 {
                     ArrayList<Commu2> arr = new ArrayList<>();
                     int i = 1;
-                    int attendance = 0;
+
                     for(QueryDocumentSnapshot document: task.getResult())
                     {
+                        int attendance = 0;
                         Map<String,Object> map;
                         map = document.getData();
 
@@ -93,7 +90,9 @@ professor_sub_cummu extends Activity {
                         String slice [] = name.split(",");
                         for(String str : slice)
                         {
+                            Log.e(TAG,map.toString());
                             if(str.contains("true")) attendance++;
+                            Log.e(TAG,"1");
                         }
 
                         arr.add(new Commu2(Integer.toString(i),document.getId(),attendance + "/" + slice.length));

@@ -17,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -122,8 +123,21 @@ public class professor_subadapter extends RecyclerView.Adapter<professor_subhold
                                 Log.e("TAG","교수용 출석 확인 디비 갱신 완료");
                                 if(task.isSuccessful()) {
                                     for(QueryDocumentSnapshot document : task.getResult()) {
-                                        coref2.document(document.getId()).set(student_uid, SetOptions.merge());
-                                        Log.e(TAG,document.getId() + "에 uid 입력됨");
+                                        fStore.collection("users").document(FirebaseAuth.getInstance().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if(task.isSuccessful())
+                                                {
+                                                    DocumentSnapshot docu = task.getResult();
+                                                    if(!docu.getBoolean("isProfessor"))
+                                                    {
+                                                        coref2.document(document.getId()).set(student_uid, SetOptions.merge());
+                                                        Log.e(TAG,document.getId() + "에 uid 입력됨");
+                                                    }
+                                                }
+                                            }
+                                        });
+
                                     }
                                 }
                             }
